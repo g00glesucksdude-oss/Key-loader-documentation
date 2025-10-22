@@ -1,0 +1,2 @@
+def decrypt_key(key):
+    return ''.join(chr(int(key[i:i+2]) + 64) for i in range(0, len(key), 2))
