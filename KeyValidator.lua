@@ -1,6 +1,3 @@
--- Load external base64 decoder from your GitHub repo
-local b64 = loadstring(game:HttpGet("https://raw.githubusercontent.com/g00glesucksdude-oss/Complicated-key-system/main/b64"))()
-
 -- CJK → Digit map
 local REVERSE_CJK = {
     ["龉"] = "0", ["鬱"] = "1", ["龘"] = "2", ["霤"] = "3", ["颍"] = "4",
@@ -58,10 +55,7 @@ return function(key)
     local ciphered, shift = parts[1], tonumber(parts[2])
     if not shift then return false, "Invalid Caesar shift" end
 
-    local b64str = reverseCaesar(ciphered, shift)
-    local success, raw = pcall(function() return b64.decode(b64str) end)
-    if not success then return false, "Base64 decode failed" end
-
+    local raw = reverseCaesar(ciphered, shift)
     local segments = string.split(raw, "_")
     if #segments ~= 4 then return false, "Malformed key payload" end
 
